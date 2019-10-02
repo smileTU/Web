@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        td {
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        var change = true;
+        function Myclick(obj) {
+            if (obj.innerText == "") {
+                if (change == true) {
+                    obj.innerText = 'O';
+                    //document.getElementById("T1").innerText = 'O';
+                    change = false;
+                } else {
+                    obj.innerText = 'X';
+                    //document.getElementById("").innerText = 'X';
+                    change = true;
+                }
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div style="font-size: 70px">
+        <table border='2' cellpadding="10" style="width: 500px; height: 500px; border: 3px; border-style: solid ">
+            <tr style="width: 100px ;height: 100;">
+                <td id="T1" onclick="Myclick(this)"></td>
+                <td id="T2" onclick="Myclick(document.getElementById('T2'))"></td>
+                <td id="T3" onclick="Myclick(document.getElementById('T3'))"></td>
+            </tr>
+            <tr>
+                <td onclick="Myclick(this)"></td>
+                <td onclick="Myclick(this)"></td>
+                <td onclick="Myclick(this)"></td>
+            </tr>
+            <tr>
+                <td onclick="Myclick(this)"></td>
+                <td onclick="Myclick(this)"></td>
+                <td onclick="Myclick(this)"></td>
+            </tr>
+        </table>
+
+
+    </div>
+
+
+</body>
+
+</html>
