@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test Form Sample</title>
+    <style>
+        div {
+            width: 75%;
+            margin: 0px auto;
+            font-family: 微軟正黑體;
+            font-size: 17px;
+        }
+
+        fieldset {
+            border-radius: 10px 10px 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form
+        action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=D1034242026@gm.lhu.edu.tw&redirect=http://www.google.com"
+        method="POST">
+        <div>
+            <fieldset>
+                <legend>個人資料(必填)</legend>
+                <label>姓名：</label>
+                <input id="label_Name" name="label_Name" type="text" /><br />
+                <br />
+                <label>密碼：</label>
+                <input id="label_Pwd" name="label_Pwd" type="password" /><br />
+                <br />
+                <label>性別：</label>
+                <input name="Radio_gender" type="radio" value="Man" />
+                男
+                <input name="Radio_gender" type="radio" value="Woman" />
+                女
+            </fieldset>
+        </div>
+        <br>
+        <div>
+            <fieldset>
+                <legend>個人資料 - 興趣</legend>
+                <label>興趣：</label>
+                <input type="checkbox" name="音樂" />音樂
+                <input type="checkbox" name="運動" />運動
+                <input type="checkbox" name="閱讀" />閱讀
+                <input type="checkbox" name="電影" />電影
+                <br>
+                <!--多行文字框-->
+                <label>專長：</label>
+                <textarea id="fieldMultiLineText" cols="50" rows="6"></textarea>
+
+            </fieldset>
+        </div>
+        <br>
+        <div>
+            <fieldset>
+                <legend>個人資料 - 地址</legend>
+                <label>郵遞區號：</label>
+                <input id="label_Postalcode" name="Postal code" type="text" /><br />
+                <br />
+                <label>縣市：</label>
+                <select name="city">
+                    <option value="TPC" selected>台北市</option>
+                    <option value="NTPC">新北市</option>
+                    <option value="桃園">桃園</option>
+                    <option value="新竹">新竹</option>
+                </select>
+                <input name="txt_address" type="text" />
+
+            </fieldset>
+        </div>
+        <br>
+        <div>
+            <input type="checkbox" id="MustCheck" name="MustCheck"> 同意你隨便用個資...
+            <input id="submit" type="submit" value="送出" />&nbsp;
+            <input id="reset" type="reset" value="清除" />
+        </div>
+    </form>
+
+</body>
+
+</html>
