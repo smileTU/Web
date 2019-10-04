@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-tw"">
+
+<head>
+    <meta charset=" UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>BMI計算</title>
+<!-- bootstrap 4.3.1 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    function BMI() {
+        var BMI = 0;
+        var body_height = document.getElementById("body_height").value;
+        var body_weight = document.getElementById("body_weight").value;
+        BMI = body_weight / Math.pow((body_height / 100), 2);
+        document.getElementById('Label1').innerHTML += BMI + "<br />";
+    }
+</script>
+</head>
+
+<body>
+    <div class="col " style="margin: 10px">
+        <label>身高：</label>
+        <input class="col-md-3" type="text" name="身高" id="body_height">
+        <label>體重：</label>
+        <input class="col-md-3" type="text" name="體重" id="body_weight">
+        <button class="btn btn-primary" type="submit"  onclick="BMI()">計算</button>
+        <br />
+        <label id="Label1"></label>
+    </div>
+</body>
+
+</html>
