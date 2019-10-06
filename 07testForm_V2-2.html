@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test Form Sample</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        div {
+            /* width: 75%; */
+            /* margin: 0px auto; */
+            font-family: 微軟正黑體;
+            font-size: 17px;
+
+        }
+
+        fieldset {
+            border-radius: 10px 10px 10px 10px;
+        }
+    </style>
+
+    <script>
+        //getElementById(抓取頁面上的元素)
+        function getElement(name) {
+            return document.getElementById(name);
+        }
+
+        //判斷是否可以送件
+        function Button_Submit() {
+            //抓取頁面上的checkboc1，取得是否checked
+            var isChecked = getElement('MustCheck').checked;
+            //如果是，就return true
+            if (isChecked) return true;
+            //否則就...
+            alert('必須勾選同意!');
+            return false;
+        }
+
+        //當網頁載入完成後執行
+        window.onload = function () {
+            //hook event(在form1被submit時...)
+            getElement('form1').onsubmit = function () {
+                //呼叫 Button_Submit()
+                return Button_Submit();
+            };
+        };
+    </script>
+</head>
+
+<body>
+    <form id="form1"
+        action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=D1034242026@gm.lhu.edu.tw&redirect=http://www.google.com"
+        method="POST" class="container">
+        <div class="row">
+            <div class="col-md-6 ">
+                <fieldset class="card" style="height: 305px;">
+                    <legend class="card-header bg-primary">個人資料(必填)</legend>
+                    <div class="card-body">
+                        <label>姓名：</label>
+                        <input id="label_Name" name="label_Name" type="text" /><br />
+                        <br />
+                        <label>密碼：</label>
+                        <input id="label_Pwd" name="label_Pwd" type="password" /><br />
+                        <br />
+                        <label>性別：</label>
+                        <input name="Radio_gender" type="radio" value="Man" />
+                        男
+                        <input name="Radio_gender" type="radio" value="Woman" />
+                        女
+                    </div>
+                </fieldset>
+            </div>
+            <br>
+            <div class="col-md-6 ">
+                <fieldset class="card">
+                    <legend class="card-header bg-primary">個人資料 - 興趣</legend>
+                    <div class="card-body">
+                        <label>興趣：</label>
+                        <input type="checkbox" name="音樂" />音樂
+                        <input type="checkbox" name="運動" />運動
+                        <input type="checkbox" name="閱讀" />閱讀
+                        <input type="checkbox" name="電影" />電影
+                        <br>
+                        <!--多行文字框-->
+                        <label>專長：</label>
+                        <textarea id="fieldMultiLineText" cols="50" rows="6"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <br />
+        <div class="row ">
+            <div class="col-md-6 ">
+                <fieldset class="card" style="height: 305px;">
+                    <legend class="card-header bg-primary">個人資料 - 地址</legend>
+                    <div class="card-body">
+                        <label>郵遞區號：</label>
+                        <input id="label_Postalcode" name="Postal code" type="text" /><br />
+                        <br />
+                        <label>縣市：</label>
+                        <select name="city">
+                            <option value="TPC" selected>台北市</option>
+                            <option value="NTPC">新北市</option>
+                            <option value="桃園">桃園</option>
+                            <option value="新竹">新竹</option>
+                        </select>
+                        <label>地址：</label>
+                        <input name="txt_address" type="text" />
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <br>
+        <div>
+            <input type="checkbox" id="MustCheck" name="MustCheck"> 同意你隨便用個資...
+            <br> <br>
+            <input class="btn btn-primary" id="submit" type="submit" value="送出" />&nbsp;
+            <input class="btn btn-primary" id="reset" type="reset" value="清除" />
+        </div>
+    </form>
+
+</body>
+
+</html>
