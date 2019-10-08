@@ -17,6 +17,18 @@
             margin: 0px auto;
             font-family: "微軟正黑體";
         }
+
+        .br15 {
+            border-radius: 15px;
+        }
+
+        .br30 {
+            border-radius: 30px;
+        }
+
+        .br50 {
+            border-radius: 50px;
+        }
     </style>
 
     <script>
@@ -28,15 +40,45 @@
                 var body_weight = $('#body_weight').val();
                 BMI = body_weight / Math.pow((body_height / 100), 2);
                 // document.getElementById('Label1').innerHTML += BMI + "<br />";
-                $('#result').html(BMI);
+                //$('#result').html("結果："+BMI);
+                $("#result").after("計算結果：" + "<span style='color:red'>" + BMI + "</span>");
             });
+
+            $("#CheckAll").click(function (e) {
+                var check = $('#CheckAll').prop("checked");
+                $('#CheckBoxGroup input').prop("checked", check);
+            });
+
+            //改變圓角
+            //1.做個選單change事件
+            $("#sel01").change(sel01_change);
+
+            //2.Change事件觸發後要做的事
+            //2-1
+
+            function sel01_change() {
+                var val = $(this).val();
+                // $('#ImgGroup2 img').css('border-radius', val);
+                $('#ImgGroup2 img').removeClass();
+                $('#ImgGroup2 img').addClass(val);
+            }
+
+            $('img').hover(function () {
+                // over
+                //改變滑鼠指標
+                $(this).css("cursor", "pointer");
+                //設定變大
+                $(this).css("transform", "scale(1.1)").css("transition-duration", "0.1s");
+            }, function () {
+                // out
+                $(this).css("transform", "scale(1)").css("transition-duration", "0.1s");
+            }
+            );
         }
-
-
-
 
         $(document).ready(function () {
             init();
+
         });
     </script>
 
@@ -57,6 +99,46 @@
 
         </div>
     </div>
+
+    <hr />
+    <div class="row" style="margin:10px">
+        <div class="col-12">
+            <input id="CheckAll" type="checkbox" />勾選全部
+            <div id="CheckBoxGroup">
+                <input type="checkbox" />項目1
+                <input type="checkbox" />項目2
+                <input type="checkbox" />項目3
+                <input type="checkbox" />項目4
+                <input type="checkbox" />項目5
+                <input type="checkbox" />項目6
+                <input type="checkbox" />項目7
+                <input type="checkbox" />項目8
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div id="ImgGroup2" class="row" style="margin:10px; padding-top:10px">
+        <div class="col-12">
+            <select id="sel01">
+                <option value="br15">15px</option>
+                <option value="br30">30px</option>
+                <option value="br50">50px</option>
+            </select>
+        </div>
+        <br /><br />
+        <div class="col-4">
+            <img src="Images/1.jpg" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="Images/2.jpg" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="Images/3.jpg" style="width:100%" class="img-responsive" />
+        </div>
+    </div>
+
 
 </body>
 
