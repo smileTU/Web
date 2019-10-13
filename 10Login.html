@@ -23,12 +23,30 @@
         }
     </style>
     <script>
-        function My_btn_click() {
 
+        function init() {
+            $("#login").click(function (e) {
+                My_btn_click();
+            });
 
+            function My_btn_click() {
+                var chk_acceptVal = document.getElementById("chk_accept").checked;
+                if (chk_acceptVal) {
+                    document.getElementById("modal-body").innerHTML = "登入成功";
+                    
+                    $('#myModal').modal();
+                } else {
+                    document.getElementById("modal-body").innerHTML = "登入失敗";
+                    
+                    $('#myModal').modal();
+                }
 
-            $('#myModal').modal();
+            }
         }
+
+        $(document).ready(function () {
+            init();
+        });
     </script>
 
 </head>
@@ -50,11 +68,11 @@
                         <input type="password" name="password" id="txt_password" style="width: 100%;">
                         <br /><br />
                         <input type="checkbox" name="accept" id="chk_accept">我無條件同意系統<a href="">使用條款<a></input>
+                                <button type="button" class="btn btn-outline-primary btn-block" id="login"
+                                    data-toggle="modal">
+                                    登入
+                                </button>
 
-                        <button type="button" class="btn btn-outline-primary btn-block" id="" data-toggle="modal"
-                            data-target="#myModal">
-                            登入
-                        </button>
                     </div>
                 </div>
             </div>
@@ -74,8 +92,8 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body" style="text-align: center;">
-                    登入成功
+                <div class="modal-body" id="modal-body" style="text-align: center;">
+
                 </div>
 
                 <!-- Modal footer -->
