@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hant-tw">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,19 @@
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            if ($(".menu-btn").is(":visible")) {
+                $(".header-menu").hide();
+                $(".menu-btn").on("click", function () {
+                    $(".header-menu").toggle();
+                });
+            }
+        });
+
+    </script>
 
 </head>
 
@@ -17,7 +30,9 @@
         <nav class="container">
             <a href="#" class="logo">Build School</a>
             <div class="menu">
-
+                <!-- <button class="menu-btn">
+                    <i class="fas fa-bars" ></i> -->
+                </button>
                 <ul class="header-menu">
                     <li>
                         <a href="">Intro</a>
@@ -130,13 +145,34 @@
                     </div>
                 </div>
                 <p>By joing, you agree to the Terms & Conditions and Privacy Policy.</p>
+                <a href="#" class="">Sign Up</a>
             </div>
 
 
         </div>
     </section>
     <footer class="page-footer">
-        <div class="container"></div>
+        <div class="container">
+            <div class="footer-menu">
+                <ul>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-content">
+                <class class="footer-logo">
+                    <a href="#">Build School</a>
+                </class>
+                <ul>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+
+
+        </div>
     </footer>
 
 </body>
