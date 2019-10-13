@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Build School 課表</title>
+
+    <style>
+        div {
+            font-family: "微軟正黑體";
+            font-size: 15pt;
+
+        }
+
+        table {
+            border-collapse: collapse;
+            /*允許框線重疊 */
+            
+        }
+
+        td {
+            padding: 7px;
+            border: 1px solid black;
+            min-width: 90px;
+            text-align: center; /*表格內文字置中*/
+        }
+        
+    </style>
 </head>
 
 <body>
@@ -17,6 +39,7 @@
             </caption>
             <tr>
                 <td>&nbsp;</td>
+                <td>時間</td>
                 <td>一</td>
                 <td>二</td>
                 <td>三</td>
@@ -25,21 +48,31 @@
             </tr>
             <tr>
                 <td>上午</td>
+                <td >09:40~12:30</td>
+                <td>正課</td>
                 <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>正課</td>
+                <td>正課</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
+                <td>中午</td>
+                <td>12:30~13:45</td>
+                <td colspan="5">午休 (75分鐘)</td>
+            </tr>
+            <tr>
                 <td>下午</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td>13:45~18:00</td>
+                <td>正課</td>
+                <td>助教輔導</td>
+                <td>正課</td>
+                <td>正課</td>
+                <td>助教輔導</td>
             </tr>
         </table>
+
+
+
     </div>
 
 </body>

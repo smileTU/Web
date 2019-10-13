@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BMI jQuery版</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        div {
+            margin: 0px auto;
+            font-family: "微軟正黑體";
+        }
+
+        .br15 {
+            border-radius: 15px;
+        }
+
+        .br30 {
+            border-radius: 30px;
+        }
+
+        .br50 {
+            border-radius: 50px;
+        }
+    </style>
+
+    <script>
+
+        function init() {
+            $("#Button1").click(function (e) {
+                var BMI = 0;
+                var body_height = $('#body_height').val();
+                var body_weight = $('#body_weight').val();
+                BMI = body_weight / Math.pow((body_height / 100), 2);
+                // document.getElementById('Label1').innerHTML += BMI + "<br />";
+                //$('#result').html("結果："+BMI);
+                $("#result").after("計算結果：" + "<span style='color:red'>" + BMI + "</span>");
+            });
+
+            $("#CheckAll").click(function (e) {
+                var check = $('#CheckAll').prop("checked");
+                $('#CheckBoxGroup input').prop("checked", check);
+            });
+
+            
+        }
+
+        $(document).ready(function () {
+            init();
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="row" style="margin:10px">
+        <div class="col-6">
+            <h5>BMI計算 (jQuery版)</h5>
+            <label>身高:</label>
+            <input class="form-control" id="body_height" value="0" />
+            <label>體重:</label>
+            <input class="form-control" id="body_weight" value="0" />
+            <br />
+            <button class="btn btn-primary" id="Button1">計算</button>
+            <br />
+            <span id="result"></span>
+
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>
