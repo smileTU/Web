@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+    <title>聊天機器人</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+
+
+    <script>
+
+        function ButtonSend() {
+            console.log("in");
+            var html = $("#TalkContainer").html();
+            var userInput = $("#inputText").val();
+
+            //將輸入內容顯示在視窗上
+            $("#TalkContainer").html(html + "<br/><br/>用戶：" + userInput);
+            //清空輸入框
+            $("#inputText").val("");
+            //scroll to bottom
+            $('#TalkContainer').scrollTop($('#TalkContainer')[0].scrollHeight);
+
+            GetAnswer(userInput, function (ret) {
+                //如果ok
+                //show user Says...
+                let html = $('#TalkContainer').html();
+                $('#TalkContainer').html(html + '<br /><br />客服 : ' + ret.answers[0].answer);
+                //scroll to bottom
+                $('#TalkContainer').scrollTop($('#TalkContainer')[0].scrollHeight);
+            });
+        }
+
+        function GetAnswer(userInput, whenSuccess, whenError) {
+            console.log("api");
+            $.ajax({
+                type: "post", //http verb
+                headers: {
+                    //http header
+                    "Authorization": "EndpointKey 1d9dd307-24c5-4305-bee2-8b427a094a95",
+                    "Content-Type": "application/json"
+                },
+                url: "https://qarobotlab.azurewebsites.net/qnamaker/knowledgebases/45c1b895-d2bc-4ee1-922b-d390020923f1/generateAnswer",
+                data: JSON.stringify({ "question": userInput }), //要翻譯的文字
+                dataType: "json",
+                success: whenSuccess,
+                error: whenError,
+            });
+        }
+
+
+
+
+
+        $(document).ready(function () {
+            $("#ButtonSend").click(ButtonSend);
+
+            //抓取Enter
+            $('#inputText').keypress(function (e) {
+                e.preventDefault();
+                if (e.keyCode == 13) {
+                    ButtonSend();
+                    return false; //?
+                }
+            });
+        });
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <body>
+        <div class="row" style="margin: 10px">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <!-- 卡片  -->
+                <div class="card">
+                    <!-- 卡片標題 -->
+                    <span class="card-header bg-primary" style="color:white">
+                        對談機器人
+                    </span>
+                    <!-- 卡片內容 -->
+                    <div class="card-body">
+                        <!-- 對談區 -->
+                        <div id="TalkContainer" style="overflow: auto; height: 300px;">
+                        </div>
+                    </div>
+                </div>
+                <form class="form-inline">
+                    <input id="inputText" class="form-control" style="width:88%">
+                    <button type="button" id="ButtonSend" class="btn btn-primary">送出</button>
+                </form>
+            </div>
+            <div class="col-2"></div>
+    </body>
+
+</body>
+
+</html>
