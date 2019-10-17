@@ -110,11 +110,19 @@
                $("#field_DataJSON").attr("readonly",false);
                 $("#ButtonImport").attr("disabled", false);
             });
+
+            //實際匯入動作的按鈕
+            $("#ButtonImport").click(function (e) { 
+               dat = JSON.parse($("#field_DataJSON").val());
+               refreshData();
+               SaveData();                
+            });
+
             //匯出按鈕視窗
             $("#export").click(function (e) {
                 var str = JSON.stringify(dat);
                 $("#ModalDataExport").modal();
-                $("#field_DataJSON").val(dat);
+                $("#field_DataJSON").val(str);
                 $("#field_DataJSON").attr("readonly",true);
                 $("#ButtonImport").attr("disabled", true);
             });
