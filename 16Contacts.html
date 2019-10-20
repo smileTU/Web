@@ -2,7 +2,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>Title</title>
+    <title>通訊錄</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +30,8 @@
     <script>
         //預設資料
         var dat = [
-            ['Eric', '0912345678', '1980/1/1', 'eric@gmail.com', '台北市光復南路179號13樓'],
+            ['Eric', '1980/1/1', '0912345678', 'eric@gmail.com', '台北市光復南路179號13樓'],
+            ['系助理', '', '0282093211#6301', 'im@mail.lhu.edu.tw', '桃園市龜山區萬壽路一段300號 F508'],
         ];
 
         //新增這個按鈕的動作
@@ -57,6 +58,39 @@
             //更新畫面
             refreshData();
 
+        }
+        //編輯視窗 更新這個按鈕的動作
+        function ButtonUpdate() {
+            //取得當前編輯資料
+            var NewItem =
+                [
+                    $('#EditField_Name').val(),
+                    $('#EditField_Birthday').val(),
+                    $('#EditField_TEL').val(),
+                    $('#EditField_Email').val(),
+                    $('#EditField_Address').val()
+                ];
+            //找出當前編輯的資料是哪一個元素
+            var n = dat.indexOf(CurrentEditItem);
+            //置換
+            dat[n] = NewItem;
+            //refresh data table
+            refreshData();
+            //儲存記憶體中的資料到localstorage
+            SaveData();
+        }
+
+
+        //編輯視窗 刪除這個按鈕
+        function ButtonDelete() {
+            //找出當前編輯的資料是哪一個元素
+            var n = dat.indexOf(CurrentEditItem);
+            //刪除指定位置的元素
+            dat.splice(n, 1);
+            //refresh data table
+            refreshData();
+            //儲存記憶體中的資料到localstorage
+            SaveData();
         }
 
         //refresh data table 重畫畫面上顯示的資料
@@ -107,15 +141,15 @@
             $("#import").click(function (e) {
                 $("#ModalDataExport").modal();
                 $("#field_DataJSON").val("");
-               $("#field_DataJSON").attr("readonly",false);
+                $("#field_DataJSON").attr("readonly", false);
                 $("#ButtonImport").attr("disabled", false);
             });
 
             //實際匯入動作的按鈕
-            $("#ButtonImport").click(function (e) { 
-               dat = JSON.parse($("#field_DataJSON").val());
-               refreshData();
-               SaveData();                
+            $("#ButtonImport").click(function (e) {
+                dat = JSON.parse($("#field_DataJSON").val());
+                refreshData();
+                SaveData();
             });
 
             //匯出按鈕視窗
@@ -123,9 +157,29 @@
                 var str = JSON.stringify(dat);
                 $("#ModalDataExport").modal();
                 $("#field_DataJSON").val(str);
-                $("#field_DataJSON").attr("readonly",true);
+                $("#field_DataJSON").attr("readonly", true);
                 $("#ButtonImport").attr("disabled", true);
             });
+
+            //編輯資料表上的資料
+            $('#Table1 tbody').on('click', 'tr', function () {
+                //取得當前點選的資料
+                CurrentEditItem = DataTable.row(this).data();
+                //顯示當前點選的資料
+                alert(CurrentEditItem);
+                //呼叫編輯視窗
+                $("#ModalEdit").modal();
+                $("#EditField_Name").val(CurrentEditItem[0]);
+                $("#EditField_Birthday").val(CurrentEditItem[1]);
+                $("#EditField_TEL").val(CurrentEditItem[2]);
+                $("#EditField_Email").val(CurrentEditItem[3]);
+                $("#EditField_Address").val(CurrentEditItem[4]);
+                //$("#").val(CurrentEditItem[5]);
+            });
+
+            //按鈕事件指派設定
+            $("#ButtonUpdate").click(ButtonUpdate);
+            $("#ButtonDelete").click(ButtonDelete);
 
         });
     </script>
@@ -176,8 +230,8 @@
     </header>
 
     <section>
-        <div class="container" style="margin-top: 10px">
-            <table id="Table1">
+        <div class="container " style="margin-top: 10px">
+            <table id="Table1" class="display">
                 <thead>
                     <tr>
                         <!-- <th>姓名</th>
@@ -319,7 +373,43 @@
             </div>
         </div>
     </div>
+    <!-- 編輯畫面 -->
+    <!-- The Modal -->
+    <div class="modal fade" id="ModalEdit">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">修改或刪除</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form>
+                        <label>姓名</label>
+                        <input id="EditField_Name" type="text" class="form-control" />
+                        <label>生日</label>
+                        <input id="EditField_Birthday" type="datetime" class="form-control" />
+                        <label>電話</label>
+                        <input id="EditField_TEL" type="tel" class="form-control" />
+                        <label>email</label>
+                        <input id="EditField_Email" type="email" class="form-control" />
+                        <label>地址</label>
+                        <input id="EditField_Address" type="address" class="form-control" />
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="ButtonUpdate" type="button" class="btn btn-primary" data-dismiss="modal">儲存</button>
+                    <button id="ButtonDelete" type="button" class="btn btn-danger" data-dismiss="modal">刪除</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- 匯入匯出畫面 -->
     <!-- The Modal : ModalDataExport -->
