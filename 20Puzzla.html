@@ -28,6 +28,17 @@
         }
     </style>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151665273-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-151665273-1');
+    </script>
+
+
 
     <script>
 
@@ -52,14 +63,25 @@
             function drawPuzzle() {
 
             }
+            //骨架
             var col = width / n;
             var row = height / n;
             alert("test");
-            $("#puzzle").css("width", width+2+"px");
+            $("#puzzle").css("width", width + 2 + "px");
             // alert($("#puzzle").css("width"));
-            for (let i = 1; i <= n*n; i++) {
+            for (let i = 1; i <= n * n; i++) {
                 $("#puzzle").append('<div class="test" style="width: ' + col + 'px; height: ' + row + 'px;"></div>');
             }
+
+            //打散拼圖
+            function BreakUpPuzzla() {
+                var count = 0;
+                while (count < 100) {
+                    var direction = Math.random() * 4;
+                    k++;
+                }
+            }
+
 
         }
     </script>
@@ -71,14 +93,14 @@
     <div class="container mt-4">
         <duv class="row">
             <div class="col-7">
-                  <input type="button" id="btn_START" class="btn btn-primary mt-3" value="按我開始玩">
+                <input type="button" id="btn_START" class="btn btn-primary mt-3" value="按我開始玩">
             </div>
             <div class="col-5">
-                    <div class="test" id="puzzle"></div><br><br><br><br>
+                <div class="test" id="puzzle"></div><br><br><br><br>
             </div>
-                
+
         </duv>
-        
+
 
     </div>
 
