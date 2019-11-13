@@ -70,7 +70,7 @@
             $("#puzzle").css("width", width + 2 + "px");
             // alert($("#puzzle").css("width"));
             for (let i = 1; i <= n * n; i++) {
-                $("#puzzle").append('<div class="test" style="width: ' + col + 'px; height: ' + row + 'px;"></div>');
+                $("#puzzle").append('<div class="test" style="width: ' + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" ></div>');
             }
 
             //打散拼圖
@@ -78,9 +78,28 @@
                 var count = 0;
                 while (count < 100) {
                     var direction = Math.random() * 4;
-                    k++;
+
+                    switch (direction) {
+                        case 1:
+
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
+
+                            break;
+                    }
+                    count++;
                 }
             }
+
+            //拼圖移動邊界判斷
+
+            //旁邊是否有空白可移動判斷
 
 
         }
