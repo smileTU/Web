@@ -25,6 +25,7 @@
         .test {
             border: 1px solid;
             float: left;
+            overflow: hidden;
         }
     </style>
 
@@ -69,6 +70,9 @@
             alert("test");
             $("#puzzle").css("width", width + 2 + "px");
             // alert($("#puzzle").css("width"));
+            //計算圖片大小
+
+
             for (let i = 1; i <= n * n; i++) {
                 $("#puzzle").append('<div class="test" style="width: ' + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" ></div>');
             }
@@ -112,6 +116,8 @@
     <div class="container mt-4">
         <duv class="row">
             <div class="col-7">
+                <img src="/Images/Penguins.jpg" alt="原始圖片" width="540" height="480">
+                <br>
                 <input type="button" id="btn_START" class="btn btn-primary mt-3" value="按我開始玩">
             </div>
             <div class="col-5">
