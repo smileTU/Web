@@ -35,7 +35,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'UA-151665273-1');
     </script>
 
@@ -49,12 +48,7 @@
 
         });
 
-        function init() {
-            //原始拼圖排序
-            var originalSortX = [];
-            var originalSortY = [];
-
-
+        function init() {        
             //設定拼圖大小
             var height = 500;
             var width = 500;
@@ -70,11 +64,18 @@
             alert("test");
             $("#puzzle").css("width", width + 2 + "px");
             // alert($("#puzzle").css("width"));
-            //計算圖片大小
-
 
             for (let i = 1; i <= n * n; i++) {
-                $("#puzzle").append('<div class="test" style="width: ' + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" ></div>');
+                //計算圖片顯示範圍
+                //直 (欄)
+                var row2 = parseInt(i / n);
+                //橫 (列)
+                var col2 = i % n;
+                $("#puzzle").append('<div class="test" id="Photo' + i + '" style="width: '
+                    + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" /></div>');
+
+                // $("#Photo" + i ).css("margin-left", col2 * -480 + 1).css("margin-top", row2 * -480 + 1);
+                $("#Photo"+ i+" img").css("margin",-100  ,680 ,768 ,100);
             }
 
             //打散拼圖
@@ -104,12 +105,8 @@
             //拼圖移動邊界判斷
 
             //旁邊是否有空白可移動判斷
-
-
         }
     </script>
-
-
 </head>
 
 <body>
@@ -128,7 +125,6 @@
 
 
     </div>
-
     <br><br><br><br>
     <!-- <div style="width: 300px;">
         <div class="test" style="width: 100px; height: 100px;">1</div>
@@ -141,7 +137,10 @@
         <div class="test" style="width: 100px; height: 100px;"></div>
         <div class="test" style="width: 100px; height: 100px;"></div>
     </div> -->
+    <div class="test" style="width: 100px; height: 100px; clip:rect(-545px 5px 5px -355px)"><img src="/Images/Penguins.jpg"
+            alt=""></div>
 
+    
 </body>
 
 </html>
