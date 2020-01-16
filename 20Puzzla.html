@@ -48,7 +48,7 @@
 
         });
 
-        function init() {        
+        function init() {
             //設定拼圖大小
             var height = 500;
             var width = 500;
@@ -65,18 +65,42 @@
             $("#puzzle").css("width", width + 2 + "px");
             // alert($("#puzzle").css("width"));
 
+
             for (let i = 1; i <= n * n; i++) {
+
+
                 //計算圖片顯示範圍
                 //直 (欄)
-                var row2 = parseInt(i / n);
+                // var row2 = parseInt(i / n);
                 //橫 (列)
-                var col2 = i % n;
-                $("#puzzle").append('<div class="test" id="Photo' + i + '" style="width: '
-                    + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" /></div>');
+                // var col2 = i % n;
+                // $("#puzzle").append('<div class="test" id="Photo' + i + '" style="width: '
+                //     + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" /></div>');
 
-                // $("#Photo" + i ).css("margin-left", col2 * -480 + 1).css("margin-top", row2 * -480 + 1);
-                $("#Photo"+ i+" img").css("margin",-100  ,680 ,768 ,100);
+                // // $("#Photo" + i ).css("margin-left", col2 * -480 + 1).css("margin-top", row2 * -480 + 1);
+                // $("#Photo"+ i+" img").css("width",width).css("height",height).css("margin",row*0 ,col*(-NumCount) ,width ,height);
+                //                                                                 //          上    左   右   下
+
+
+
+
             }
+            var NumCount = 1;
+            for (let y = 0; y < n; y++) {
+                for (let x = 0; x < n; x++) {
+                    $("#puzzle").append('<div class="test" id="Photo' + NumCount + '" style="width: '
+                        + col + 'px; height: ' + row + 'px;"><img src="/Images/Penguins.jpg" /></div>');
+
+                    $("#Photo" + NumCount + " img").css("width", width).css("height", height)
+                        .css("margin-left", row * -x).css("margin-top",col * -y)
+                    //          上    左   右   下 ,col *-x,  width , height
+                    
+                    console.log(`NumCount =  ${NumCount} \nx = ${x}, y = ${y}\n上 = ${row * -y} 左 = ${col *-x}`);
+                    NumCount = NumCount + 1;
+                }
+            }
+
+            
 
             //打散拼圖
             function BreakUpPuzzla() {
@@ -137,10 +161,10 @@
         <div class="test" style="width: 100px; height: 100px;"></div>
         <div class="test" style="width: 100px; height: 100px;"></div>
     </div> -->
-    <div class="test" style="width: 100px; height: 100px; clip:rect(-545px 5px 5px -355px)"><img src="/Images/Penguins.jpg"
-            alt=""></div>
+    <div class="test" style="width: 100px; height: 100px; clip:rect(-545px 5px 5px -355px)"><img
+            src="/Images/Penguins.jpg" alt=""></div>
 
-    
+
 </body>
 
 </html>
