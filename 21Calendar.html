@@ -1,100 +1,229 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>行事曆</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
+    <!-- <script>
+      // 對Date的擴充套件，將 Date 轉化為指定格式的String
+      // 月(M)、日(d)、小時(h)、分(m)、秒(s)、季度(q) 可以用 1-2 個佔位符，
+      // 年(y)可以用 1-4 個佔位符，毫秒(S)只能用 1 個佔位符(是 1-3 位的數字)
+      // 例子：
+      // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+      // (new Date()).Format("yyyy-M-d h:m:s.S")   ==> 2006-7-2 8:9:4.18
+      Date.prototype.Format = function(fmt) {
+        //author: meizz
+        var o = {
+          "M+": this.getMonth() + 1, //月份
+          "d+": this.getDate(), //日
+          "H+": this.getHours(), //小时
+          "m+": this.getMinutes(), //分
+          "s+": this.getSeconds(), //秒
+          "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+          S: this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt))
+          fmt = fmt.replace(
+            RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+          );
+        for (var k in o)
+          if (new RegExp("(" + k + ")").test(fmt))
+            fmt = fmt.replace(
+              RegExp.$1,
+              RegExp.$1.length == 1
+                ? o[k]
+                : ("00" + o[k]).substr(("" + o[k]).length)
+            );
+        return fmt;
+      };
+
+      $(document).ready(function() {});
+
+      function drawMonth() {
+        var dt = new Date();
+
+        var week = dt.getDay() / 7;
+        document.write("dt=" + dt);
+      }
+    </script> -->
     <script>
+      //用來記錄這個月的月曆長相
+      var Calendar = [];
+      //注意：Month的起始值是0
+      var d = new Date();
+      var _year = d.getFullYear();
+      var _month = d.getMonth();
+      var _date = d.getDate();
+      var _week = d.getDay();
 
-        // 對Date的擴充套件，將 Date 轉化為指定格式的String
-        // 月(M)、日(d)、小時(h)、分(m)、秒(s)、季度(q) 可以用 1-2 個佔位符，
-        // 年(y)可以用 1-4 個佔位符，毫秒(S)只能用 1 個佔位符(是 1-3 位的數字)
-        // 例子：
-        // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
-        // (new Date()).Format("yyyy-M-d h:m:s.S")   ==> 2006-7-2 8:9:4.18
-        Date.prototype.Format = function (fmt) { //author: meizz 
-            var o = {
-                "M+": this.getMonth() + 1, //月份 
-                "d+": this.getDate(), //日 
-                "H+": this.getHours(), //小时 
-                "m+": this.getMinutes(), //分 
-                "s+": this.getSeconds(), //秒 
-                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-                "S": this.getMilliseconds() //毫秒 
-            };
-            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-            return fmt;
+      $(function() {
+        var MonthNameArray = [
+          "Januanry",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "Novenber",
+          "December"
+        ];
+        console.log("Date is", _year, MonthNameArray[_month], _date, _week);
+        $("#MonthName").append("<h2>" + MonthNameArray[_month] + "</h2>");
+        alert(_year);
+
+        var firstDay = new Date(_year, _month, 1);
+        var lastDay = new Date(_year, _month + 1, 0); //去抓下個月的前一天
+        console.log("第一天：", firstDay);
+        console.log("最後一天：", lastDay);
+
+        //設定上個月的日期
+        //先取得上個月的最後一天 再將參數傳入
+        var lastDateOfLastMonth = new Date(_year, _month, 0);
+        GetLastMonthDate(firstDay.getDay(), lastDateOfLastMonth);
+
+        //取得這個月的日期
+        GetCurrentMonthDate(firstDay, lastDay);
+
+        GetNextMonthDate(lastDay);
+
+        DisplayeCalendar();
+      });
+
+      //抓上個月
+      function GetLastMonthDate(lastMonthDateLength, lastDateOfLastMonth) {
+        console.log("這個月開始星期：", lastMonthDateLength);
+        //依照順序顯示上個月的日期
+        var displaydate =
+          lastDateOfLastMonth.getDate() - lastMonthDateLength + 1;
+        var displayWeek =
+          lastDateOfLastMonth.getDay() - lastMonthDateLength + 1;
+        for (let i = 0; i < lastMonthDateLength; i++) {
+          var singleItem = {
+            month: lastDateOfLastMonth.getMonth(),
+            date: displaydate,
+            week: displayWeek
+          };
+          displaydate++;
+          displayWeek++;
+          //將這個月的月曆表格值存起來
+          Calendar.push(singleItem);
         }
-        $(document).ready(function () {
+        console.log("Calendar is ", Calendar);
+      }
 
-        });
-
-        function drawMonth() {
-            var dt = new Date();
-
-            var week = dt.getDay() / 7;
-            document.write("dt=" + dt);
-
-
+      //抓這個月
+      function GetCurrentMonthDate(firstDay, lastDay) {
+        var start = firstDay.getDate();
+        var end = lastDay.getDate();
+        console.log("起始日：", start, "\n結束日：", end);
+        for (let index = start; index <= end; index++) {
+          var today_week = new Date(_year, _month, index);
+          var singleItem = {
+            month: firstDay.getMonth(),
+            date: index,
+            week: today_week.getDay()
+          };
+          Calendar.push(singleItem);
         }
+        console.log("Calendar is ", Calendar);
+      }
 
+      //抓下個月
+      function GetNextMonthDate(lastDay) {
+        var lastDateOftheMonth_week = lastDay.getDay();
+        console.log("這個月的最後一天星期:" + lastDateOftheMonth_week);
+        var nextMonthFirstDate = new Date(_year, _month + 1, 1);
+
+        for (let i = 0; i < 6 - lastDateOftheMonth_week; i++) {
+          var singleItem = {
+            month: nextMonthFirstDate.getMonth(),
+            date: nextMonthFirstDate.getDate() + i,
+            week: nextMonthFirstDate.getDay() + i
+          };
+          Calendar.push(singleItem);
+        }
+        console.log("Calendar is ", Calendar);
+      }
+      //畫出來
+      function DisplayeCalendar() {
+        var rows_count = Calendar.length / 7;
+        for (var i = 0; i < rows_count; i++) {
+          $("#calendar-conter").append($("<tr>").addClass("week" + i));
+        }
+        for (var i = 0; i <= Calendar.length; i++) {
+          var week = parseInt(i / 7);
+          var target = $("#calendar-conter").find(".week" + week);
+          target.append($("<td>").text(Calendar[i].date));
+        }
+      }
     </script>
 
     <style>
-        table {
-            border-collapse: collapse;
-            /*允許框線重疊 */
+      table {
+        border-collapse: collapse;
+        /*允許框線重疊 */
+      }
 
-        }
-
-        td,
-        th {
-            padding: 7px;
-            border: 1px solid black;
-            min-width: 90px;
-            text-align: center;
-            /*表格內文字置中*/
-        }
+      td,
+      th {
+        padding: 7px;
+        border: 1px solid black;
+        min-width: 90px;
+        text-align: center;
+        /*表格內文字置中*/
+      }
     </style>
+  </head>
 
-</head>
-
-
-
-<body>
+  <body>
     <div class="container mt-3">
-
-        <table>
-            <tr>
-                <th>日</th>
-                <th>一</th>
-                <th>二</th>
-                <th>三</th>
-                <th>四</th>
-                <th>五</th>
-                <th>六</th>
-            </tr>
-        </table>
+      <div id="MonthName"></div>
+      <table id="calendar">
+        <thead>
+          <tr>
+            <th>日</th>
+            <th>一</th>
+            <th>二</th>
+            <th>三</th>
+            <th>四</th>
+            <th>五</th>
+            <th>六</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-conter"></tbody>
+      </table>
     </div>
-</body>
-
+  </body>
 </html>
