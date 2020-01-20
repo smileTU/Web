@@ -2,7 +2,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>Title</title>
+    <title>翻譯機</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,6 +26,54 @@
     padding: 120px 0;
 }
 </style>
+
+<script>
+function GetWork() {
+    $.ajax({
+    type: "post",
+    headers: {
+                //http header
+                "Ocp-Apim-Subscription-Key": "f39e018533e04b6da255f8af5f46204b",
+                "Content-Type": "application/json"
+            },
+    url: "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=en&to=ko",
+    data: JSON.stringify([{ "Text": $("#word").val() }]),
+    dataType: "json",
+    success: function (response) {
+        //呼叫遠端服務後的回傳結果
+        $('#Answer').val(response[0].translations[0].text);
+    }
+});
+}
+function GoBack() {
+    $.ajax({
+    type: "post",
+    headers: {
+                //http header
+                "Ocp-Apim-Subscription-Key": "f39e018533e04b6da255f8af5f46204b",
+                "Content-Type": "application/json"
+            },
+    url: "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=en&to=zh-Hant",
+    data: JSON.stringify([{ "Text": $("#Answer").val() }]),
+    dataType: "json",
+    success: function (response) {
+        //呼叫遠端服務後的回傳結果
+        $('#word').val(response[0].translations[1].text);
+    }
+});
+}
+
+$(document).ready(function () {
+    $("#GORight").click(function (e) { 
+        GetWork();
+        
+    });
+    $("#GOLift").click(function (e) { 
+        GoBack();
+    });
+});
+</script>
+
 </head>
 
 <body>
@@ -37,13 +85,13 @@
                         原文
                     </div>
                     <div class="card-body" style="text-align: center;">
-                        <textarea name="word" id="" rows="10" style="width: 95%; "></textarea>
+                        <textarea name="word" id="word" rows="10" style="width: 95%; "></textarea>
                     </div>
                 </div>                
             </div>
             <div class="col col-xl-2 text-center" style="text-align:middle;"id="c2">
-                <input type="button" value="→"><br/><br><br>
-                <input type="button" value="←">
+                <input type="button" value="→" id="GORight"><br/><br><br>
+                <input type="button" value="←" id="GOLift">
             </div>
             <div class="col col-5">
                 <div class="card">
@@ -51,7 +99,7 @@
                         翻譯結果
                     </div>
                     <div class="card-body" style="text-align: center;">
-                        <textarea name="word" id="" rows="10" style="width: 95%; "></textarea>
+                        <textarea name="word" id="Answer" rows="10" style="width: 95%; "></textarea>
                     </div>
                 </div>
             </div>
